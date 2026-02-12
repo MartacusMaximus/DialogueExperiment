@@ -9,6 +9,16 @@
     "/Applications/Unity/Hub/Editor/6000.2.14f1-arm64/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/BuiltInPackagesCombined.sha1"
   ],
   "outputs": {
+    "com.unity.inputsystem@1.16.0": {
+      "name": "com.unity.inputsystem",
+      "displayName": "Input System",
+      "resolvedPath": "/Users/mart/projects/Unity/DialogueExperiment/DialogueExperiment/Library/PackageCache/com.unity.inputsystem@552acc76aabe",
+      "fingerprint": "552acc76aabe96578f58f3467db2e69552a128be",
+      "editorCompatibility": "2022.3.0a1",
+      "version": "1.16.0",
+      "source": "registry",
+      "testable": false
+    },
     "com.unity.multiplayer.center@1.0.0": {
       "name": "com.unity.multiplayer.center",
       "displayName": "Multiplayer Center",
