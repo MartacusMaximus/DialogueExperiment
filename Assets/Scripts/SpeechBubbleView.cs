@@ -6,68 +6,130 @@ using System.Collections;
 [RequireComponent(typeof(CanvasGroup))]
 public class SpeechBubbleView : MonoBehaviour
 {
-    [Header("UI")]
     public TMP_Text tmpText;
     public CanvasGroup canvasGroup;
-
-    [Header("Fade")]
     public float fadeDuration = 0.35f;
-
-    public bool IsRevealed { get; private set; } = false;
-    public bool IsFinished { get; private set; } = false;
 
     public event Action<SpeechBubbleView> OnRevealComplete;
     public event Action<SpeechBubbleView> OnLifeComplete;
 
-    Coroutine typeRoutine;
-    Coroutine lifeRoutine;
+    enum State { Idle, Typing, RevealedWaiting, Fading, Finished }
+    State state = State.Idle;
+
+    string fullMessage;
+    float charsPerSecond;
+    float autoFadeTime;
+    float postRevealDelay;
+
+    Coroutine typingCoroutine;
+    Coroutine autoFadeCoroutine;
+    Coroutine fadeCoroutine;
 
     void Reset()
     {
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void Initialize(string message, float charsPerSecond, float autoFadeTime)
+    public void Initialize(string message, float cps, float autoFade, float postRevealDelaySeconds = 0f)
     {
         StopAllCoroutines();
+        typingCoroutine = null;
+        autoFadeCoroutine = null;
+        fadeCoroutine = null;
+
+        fullMessage = message ?? string.Empty;
+        charsPerSecond = Mathf.Max(1f, cps);
+        autoFadeTime = Mathf.Max(0f, autoFade);
+        postRevealDelay = Mathf.Max(0f, postRevealDelaySeconds);
+
         tmpText.text = string.Empty;
         canvasGroup.alpha = 1f;
-        IsRevealed = false;
-        IsFinished = false;
+        state = State.Typing;
 
-        typeRoutine = StartCoroutine(TypewriterRoutine(message, charsPerSecond, autoFadeTime));
+        typingCoroutine = StartCoroutine(TypewriterRoutine());
     }
 
-    IEnumerator TypewriterRoutine(string message, float cps, float autoFadeTime)
+    IEnumerator TypewriterRoutine()
     {
-        if (cps <= 0f) cps = 60f; // safety
-        float delay = 1f / cps;
-
+        float delay = 1f / charsPerSecond;
         int i = 0;
-        while (i < message.Length)
+        while (i < fullMessage.Length)
         {
-            tmpText.text += message[i];
-            i++;
+            tmpText.text += fullMessage[i++];
             yield return new WaitForSeconds(delay);
         }
 
-        IsRevealed = true;
+        state = State.RevealedWaiting;
         OnRevealComplete?.Invoke(this);
+
+        if (postRevealDelay > 0f)
+            yield return new WaitForSeconds(postRevealDelay);
 
         if (autoFadeTime > 0f)
         {
-            lifeRoutine = StartCoroutine(AutoLifeRoutine(autoFadeTime));
+            autoFadeCoroutine = StartCoroutine(AutoFadeRoutine(autoFadeTime));
         }
     }
 
-    IEnumerator AutoLifeRoutine(float wait)
+    IEnumerator AutoFadeRoutine(float wait)
     {
         yield return new WaitForSeconds(wait);
-        yield return FadeOutAndFinish();
+        StartFadeImmediate();
     }
 
-    public IEnumerator FadeOutAndFinish()
+
+    public void SkipOrAdvance()
     {
+        if (state == State.Typing)
+        {
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+            }
+            tmpText.text = fullMessage;
+            state = State.RevealedWaiting;
+            OnRevealComplete?.Invoke(this);
+
+            if (autoFadeTime > 0f)
+            {
+                if (autoFadeCoroutine != null) StopCoroutine(autoFadeCoroutine);
+                autoFadeCoroutine = StartCoroutine(AutoFadeRoutine(autoFadeTime));
+            }
+
+            return;
+        }
+
+        if (state == State.RevealedWaiting)
+        {
+            if (autoFadeTime > 0f)
+            {
+                StartFadeImmediate();
+            }
+            else
+            {
+                FinishLifeImmediate();
+            }
+            return;
+        }
+    }
+
+
+    public void StartFadeImmediate()
+    {
+        if (state == State.Fading || state == State.Finished) return;
+
+        // cancel other coroutines (typing/auto)
+        if (typingCoroutine != null) { StopCoroutine(typingCoroutine); typingCoroutine = null; }
+        if (autoFadeCoroutine != null) { StopCoroutine(autoFadeCoroutine); autoFadeCoroutine = null; }
+
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        fadeCoroutine = StartCoroutine(FadeOutAndFinish());
+    }
+
+    IEnumerator FadeOutAndFinish()
+    {
+        state = State.Fading;
         float t = 0f;
         float start = canvasGroup.alpha;
         while (t < fadeDuration)
@@ -78,20 +140,22 @@ public class SpeechBubbleView : MonoBehaviour
         }
 
         canvasGroup.alpha = 0f;
-        IsFinished = true;
+        state = State.Finished;
         OnLifeComplete?.Invoke(this);
 
         Destroy(gameObject);
     }
 
-    public void ForceFinishInstant()
+
+    void FinishLifeImmediate()
     {
-        if (typeRoutine != null) StopCoroutine(typeRoutine);
-        tmpText.text = tmpText.text + "";
-        if (!IsRevealed)
-        {
-            IsRevealed = true;
-            OnRevealComplete?.Invoke(this);
-        }
+        if (state == State.Finished) return;
+
+        // stop everything
+        StopAllCoroutines();
+        state = State.Finished;
+
+        OnLifeComplete?.Invoke(this);
+        Destroy(gameObject);
     }
 }

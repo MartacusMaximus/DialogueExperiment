@@ -31,13 +31,18 @@ public interface IDialogueResponseListener
 public class SpeechBubble
 {
     public string speakerName;
-    [TextArea(2, 5)]
+    [TextArea(2, 6)]
     public string text;
 
     public DialogueBubbleType bubbleType;
     public ExpectedResponseType expectedResponse;
 
     public float autoFadeTime = 5f;
+
     public float revealSpeed = 60f;
+
+    public float postRevealDelay = 0.25f;
+
     public DialogueNode followUp;
 }
+

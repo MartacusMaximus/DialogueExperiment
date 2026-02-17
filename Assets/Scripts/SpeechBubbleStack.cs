@@ -8,16 +8,20 @@ public class SpeechBubbleStack : MonoBehaviour
 
     private readonly List<SpeechBubbleView> activeBubbles = new();
 
-    public SpeechBubbleView SpawnBubble(string text, float typeSpeed, float autoFadeTime)
+    public SpeechBubbleView SpawnBubble(string text, float typeSpeed, float autoFadeTime, float postRevealDelay = 0f)
     {
-        var bubble = Instantiate(bubblePrefab, transform);
-        bubble.Initialize(text, typeSpeed, autoFadeTime);
+        var go = Instantiate(bubblePrefab.gameObject, transform);
+        var view = go.GetComponent<SpeechBubbleView>();
+        view.Initialize(text, typeSpeed, autoFadeTime, postRevealDelay);
 
-        activeBubbles.Add(bubble);
-        RepositionBubbles();
 
-        return bubble;
+        view.OnLifeComplete += v => {
+            // implement list removal logic hier
+        };
+
+        return view;
     }
+
 
     private void HandleBubbleDestroyed(SpeechBubbleView bubble)
     {

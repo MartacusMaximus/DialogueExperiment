@@ -16,16 +16,18 @@ MonoBehaviour:
   - speakerName: Sjord
     text: Ik ben sjord and I like sjording
     bubbleType: 0
-    expectedResponse: 0
+    expectedResponse: 3
     autoFadeTime: 2
     revealSpeed: 60
+    postRevealDelay: 0.25
     followUp: {fileID: 0}
   - speakerName: Sjord
     text: I wish i could sjord forever
     bubbleType: 0
-    expectedResponse: 0
+    expectedResponse: 3
     autoFadeTime: 2
     revealSpeed: 60
+    postRevealDelay: 0.25
     followUp: {fileID: 0}
   - speakerName: Sjord
     text: But I will never Sjord again
@@ -33,4 +35,5 @@ MonoBehaviour:
     expectedResponse: 3
     autoFadeTime: 5
     revealSpeed: 60
+    postRevealDelay: 0.25
     followUp: {fileID: 11400000, guid: 862eddd1960ab495fa932b7f3a495e77, type: 2}
