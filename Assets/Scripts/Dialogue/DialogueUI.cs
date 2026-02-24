@@ -109,7 +109,6 @@ public class DialogueUI : MonoBehaviour
             }
         }
 
-        DialogueSystem.Instance?.EndDialogue();
         dialogueRoutine = null;
     }
 }

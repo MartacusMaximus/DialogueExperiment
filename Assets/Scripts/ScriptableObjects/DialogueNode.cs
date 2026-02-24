@@ -15,12 +15,29 @@ public enum ExpectedResponseType
     TimerOnly
 }
 
+enum DialogueState
+{
+    Idle,
+    AwaitingWorldResponse,
+    AwaitingInsertedBubble,
+    Completed
+}
+
 [CreateAssetMenu(menuName = "Dialogue/Dialogue Node")]
 public class DialogueNode : ScriptableObject
 {
+    public DialogueResponseRule[] responseRules;
+
     public SpeechBubble[] bubbles;
 }
 
+[System.Serializable]
+public class DialogueResponseRule
+{
+    public string requiredResponseID;
+    public DialogueNode followUpNode;
+    public bool consumeBubble = true;
+}
 
 public interface IDialogueResponseListener
 {

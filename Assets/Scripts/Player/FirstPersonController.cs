@@ -26,9 +26,13 @@ public class FirstPersonController : MonoBehaviour
 
     public bool inputLocked;
 
+    PlayerInteractor interactor;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        interactor = GetComponent<PlayerInteractor>();
 
         input = new PlayerInputActions();
 
@@ -40,17 +44,7 @@ public class FirstPersonController : MonoBehaviour
         
         input.Player.Interact.performed += ctx =>
         {
-            if (DialogueSystem.Instance != null && DialogueSystem.Instance.TryAdvanceOrConsume())
-            {
-                return;
-            }
-
-           TryInteract();
-        };
-
-        input.Player.Previous.performed += ctx =>
-        {
-            DialogueSystem.Instance?.ForceExit();
+           interactor.TryInteract();
         };
 
 
@@ -101,22 +95,6 @@ public class FirstPersonController : MonoBehaviour
 
         Vector3 velocity = move * moveSpeed + Vector3.up * yVelocity;
         controller.Move(velocity * Time.deltaTime);
-    }
-
-    void TryInteract()
-    {
-        Debug.Log("E to Interact");
-        if (inputLocked)
-            return;
-
-        Ray ray = new Ray(cameraPivot.position, cameraPivot.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
-        {
-            if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
-            {
-                interactable.Interact(this);
-            }
-        }
     }
 
     public void LockInput(bool locked)
