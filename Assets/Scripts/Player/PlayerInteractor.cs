@@ -22,32 +22,57 @@ public class PlayerInteractor : MonoBehaviour
 
     void HandleHover()
     {
-        // If holding something always show throw prompt
-        if (heldItem != null)
-        {
-            InteractionPromptUI.Instance.Show("Press E to Throw Item");
-            return;
-        }
-
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactMask))
         {
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
                 currentHover = interactable;
-                InteractionPromptUI.Instance.Show(interactable.GetInteractPrompt());
+
+                if (heldItem != null)
+                {
+                    var machine = interactable as BubbleMachine;
+                    if (machine != null)
+                    {
+                        var heldGO = GetHeldGameObject();
+                        var bubble = heldGO != null ? heldGO.GetComponent<SpeechBubbleEntity>() : null;
+                        if (bubble != null && bubble.isOrder)
+                            InteractionPromptUI.Instance.Show("Press E to Insert Order");
+                        else
+                            InteractionPromptUI.Instance.Show("Press E to Insert");
+                        return;
+                    }
+
+                    InteractionPromptUI.Instance.Show("Press E to Throw Item");
+                    return;
+                }
+
+               InteractionPromptUI.Instance.Show(interactable.GetInteractPrompt());
                 return;
             }
         }
 
         currentHover = null;
-        InteractionPromptUI.Instance.Hide();
+
+        if (heldItem != null)
+        {
+            InteractionPromptUI.Instance.Show("Press E to Throw Item");
+        }
+        else
+        {
+            InteractionPromptUI.Instance.Hide();
+        }
     }
 
     public void TryInteract()
     {
-        // If holding something throw it anywhere
-        if (heldItem != null)
+        if (heldItem != null && currentHover != null)
+        {
+            currentHover.Interact(this);
+            return;
+        }
+
+        if (heldItem != null && currentHover == null)
         {
             ThrowHeldItem();
             return;
@@ -61,33 +86,35 @@ public class PlayerInteractor : MonoBehaviour
 
     public void PickupItem(GameObject obj)
     {
-        heldItem = obj.GetComponent<IHoldable>();
+        if (obj == null) return;
+
+        var holdable = obj.GetComponent<IHoldable>();
+        if (holdable == null) return;
+
+        heldItem = holdable;
         heldRb = obj.GetComponent<Rigidbody>();
 
-        if (heldItem == null) return;
+        heldItem.OnPickup(this); 
 
-        heldItem.OnPickup(this);
-
-        if (heldRb != null)
-        {
-            heldRb.isKinematic = true;
-            heldRb.useGravity = false;
-        }
-
-        obj.transform.SetParent(holdPoint);
+        obj.transform.SetParent(holdPoint, false);
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
     }
 
     void ThrowHeldItem()
     {
-        Debug.Log("Throw");
         if (heldItem == null) return;
 
-        Transform obj = ((MonoBehaviour)heldItem).transform;
+        var mb = heldItem as MonoBehaviour;
+        if (mb == null)
+        {
+            ClearHeld();
+            return;
+        }
 
-        obj.SetParent(null);
+        GameObject obj = mb.gameObject;
 
+        obj.transform.SetParent(null);
         if (heldRb != null)
         {
             heldRb.isKinematic = false;
@@ -96,8 +123,43 @@ public class PlayerInteractor : MonoBehaviour
         }
 
         heldItem.OnDrop();
+        ClearHeld();
+    }
 
+    void ClearHeld()
+    {
         heldItem = null;
         heldRb = null;
+    }
+
+    public GameObject GetHeldGameObject()
+    {
+        if (heldItem == null) return null;
+        var mb = heldItem as MonoBehaviour;
+        return mb != null ? mb.gameObject : null;
+    }
+
+    public GameObject TakeHeldItemForInsertion()
+    {
+        if (heldItem == null) return null;
+
+        var mb = heldItem as MonoBehaviour;
+        if (mb == null) return null;
+
+        GameObject obj = mb.gameObject;
+
+        obj.transform.SetParent(null);
+
+        if (heldRb != null)
+        {
+            heldRb.isKinematic = false;
+            heldRb.useGravity = true;
+        }
+
+        heldItem.OnDrop();
+
+        ClearHeld();
+
+        return obj;
     }
 }

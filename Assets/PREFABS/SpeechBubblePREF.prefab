@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8893104291408683008}
   - component: {fileID: 8422849304591571758}
   - component: {fileID: 7759500052919666001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpeechBubblePREF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,6 +154,10 @@ MonoBehaviour:
   message: 
   sourceNode: {fileID: 0}
   bubbleIndex: -1
+  expectedResponse: 0
+  responseID: 
+  isOrder: 0
+  orderData: {fileID: 0}
   inflateDuration: 0.35
   inflateCurve:
     serializedVersion: 2
@@ -236,7 +240,7 @@ GameObject:
   - component: {fileID: 2171887356939759258}
   - component: {fileID: 2291255326402644754}
   - component: {fileID: 6172502319018704054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +257,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5035296616226320359}
@@ -325,7 +329,7 @@ GameObject:
   - component: {fileID: 5657084735621412463}
   - component: {fileID: 2986466127455844532}
   - component: {fileID: 7666719187538425750}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DialogText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,10 +457,11 @@ MonoBehaviour:
   m_fontSizeMin: 20
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -484,7 +489,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 3.1478553, y: -1.0777173, z: 3.4043856, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -504,7 +509,7 @@ GameObject:
   - component: {fileID: 1733253986314113356}
   - component: {fileID: 2344026335298418908}
   - component: {fileID: 1580265078665595767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +526,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5035296616226320359}

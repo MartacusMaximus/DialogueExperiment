@@ -80,4 +80,40 @@ public class BubbleMachine : MonoBehaviour
         go.Initialize(fakeSpeech, originNode, -1);
         return go;
     }
+
+    public string GetInteractPrompt()
+    {
+        return "Press E to Use Machine";
+    }
+    public void Interact(PlayerInteractor interactor)
+    {
+        if (interactor == null) return;
+
+        GameObject held = interactor.GetHeldGameObject();
+        if (held != null)
+        {
+            GameObject taken = interactor.TakeHeldItemForInsertion();
+            if (taken != null)
+            {
+                var bubble = taken.GetComponent<SpeechBubbleEntity>();
+                if (bubble != null)
+                {
+                    if (inputSlot != null)
+                    {
+                        inputSlot.ReceiveBubble(bubble);
+                        return;
+                    }
+
+                    HandleBubbleInserted(bubble);
+                    return;
+                }
+                else
+                {
+                    Debug.Log("BubbleMachine: taken item is not a SpeechBubbleEntity.");
+                }
+            }
+            return;
+        }
+        Debug.Log("BubbleMachine interacted with, but player is not holding a bubble.");
+    }
 }

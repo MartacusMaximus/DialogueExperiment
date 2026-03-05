@@ -5,8 +5,12 @@ using System.Collections;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
+
 public class SpeechBubbleEntity : MonoBehaviour, IInteractable, IHoldable
 {
+    [Header("Prototype Message Data")]
+    public MessageBubbleData messageData;
+
     [Header("References")]
     public TextMeshPro textMesh;
 
@@ -43,6 +47,12 @@ public class SpeechBubbleEntity : MonoBehaviour, IInteractable, IHoldable
     {
         floating = GetComponent<FloatingBubble>();
         rb = GetComponent<Rigidbody>();
+    }
+
+    public void InitializePrototype(MessageBubbleData data)
+    {
+        messageData = data;
+        UpdateText(data.text);
     }
 
     public void Initialize(SpeechBubble data, DialogueNode originNode, int index)

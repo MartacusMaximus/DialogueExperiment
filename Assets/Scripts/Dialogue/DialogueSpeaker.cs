@@ -5,20 +5,26 @@ public class DialogueSpeaker : MonoBehaviour, IInteractable
 {
     [Header("Dialogue")]
     public DialogueNode dialogueNode;
+    public Order orderExample;
+
 
     [Header("Spawn")]
     public Transform spawnAnchor;
 
     public string interactPrompt = "Press E to Talk";
 
+    public OrderSpawner ordSpawner;
 
     public string GetInteractPrompt()
     {
         return interactPrompt;
     }
+
     public void Interact(PlayerInteractor interactor)
     {
         if (dialogueNode == null) return;
+
+        ordSpawner.SpawnOrderBubble(orderExample);
 
         DialogueSystem.Instance.SpawnSpeechBubbles(dialogueNode, this);
     }
