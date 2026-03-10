@@ -44,7 +44,7 @@ MonoBehaviour:
       respondsTo:
       - R_HellYea01
       - R_HellYea00
-      followUpEvent: D_Sjord02
+      followUpEvent: D_Sjord03
       sceneTriggers:
       - S_DoorOpen00
     - branchKey: 02
@@ -73,7 +73,7 @@ MonoBehaviour:
     autoFadeTime: 0
     revealSpeed: 60
     postRevealDelay: 0.25
-  - bubbleId: D_Sjord02
+  - bubbleId: D_Sjord03
     speakerName: Mister Sjord
     text: '"Thanks a lot, bozo"'
     responseBranches:
