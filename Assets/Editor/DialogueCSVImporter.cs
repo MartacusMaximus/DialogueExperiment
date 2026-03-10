@@ -32,7 +32,6 @@ public class DialogueCSVImporter : EditorWindow
             "RespondsTo01, FollowUp01, SceneTriggers01\n" +
             "RespondsTo02, FollowUp02, SceneTriggers02 ... (scales to N)\n" +
             "Optional global fallback columns: Scene Triggers, Follow Up Event\n" +
-            "Legacy fallback: Appropriate Responses\n\n" +
             "Machine generation rule: RespondsToXX must include an R_... ID to become a machine option.",
             MessageType.Info);
 
@@ -232,7 +231,6 @@ public class DialogueCSVImporter : EditorWindow
 
         if (!looksLikeHeader)
         {
-            // No-header fallback (legacy ordering)
             schema.EventIndex = 0;
             schema.SpeakerIndex = 1;
             schema.TextIndex = 2;

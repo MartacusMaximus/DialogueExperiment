@@ -30,8 +30,7 @@ MonoBehaviour:
       followUpEvent: D_Klaasje01
       sceneTriggers: []
     appropriateResponses: []
-    sceneTriggers:
-    - 
+    sceneTriggers: []
     followUpEvent: 
     autoFadeTime: 0
     revealSpeed: 60

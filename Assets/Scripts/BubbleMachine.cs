@@ -6,15 +6,12 @@ using UnityEngine.Serialization;
 public class BubbleMachine : MonoBehaviour, IInteractable, IBubbleInsertTarget
 {
     [Header("References")]
-    [FormerlySerializedAs("responseBubblePrefab")]
     public SpeechBubbleEntity bubblePrefab;
 
-    [FormerlySerializedAs("outputSpawn")]
     public Transform bubbleSpawnPoint;
 
     public MicrophoneSlot inputSlot;
 
-    [FormerlySerializedAs("insertPoint")]
     public Transform insertPoint;
 
     [Header("Option Buttons")]
@@ -23,7 +20,6 @@ public class BubbleMachine : MonoBehaviour, IInteractable, IBubbleInsertTarget
     public Transform optionSpawnPoint;
 
     [Header("Settings")]
-    [FormerlySerializedAs("processingDuration")]
     public float spawnDelay = 0.6f;
 
     [Min(1)]
