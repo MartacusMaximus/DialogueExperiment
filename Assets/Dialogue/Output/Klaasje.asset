@@ -22,14 +22,16 @@ MonoBehaviour:
       respondsTo:
       - R_HellYea00
       followUpEvent: D_Klaasje02
-      sceneTriggers: []
+      sceneTriggers:
+      - S_Kiss00
     - branchKey: 02
       respondsTo:
       - R_HellNo00
       followUpEvent: D_Klaasje01
       sceneTriggers: []
     appropriateResponses: []
-    sceneTriggers: []
+    sceneTriggers:
+    - 
     followUpEvent: 
     autoFadeTime: 0
     revealSpeed: 60

@@ -538,6 +538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 150802223}
   - component: {fileID: 150802222}
+  - component: {fileID: 990000001}
   m_Layer: 0
   m_Name: DoorPivot00
   m_TagString: Untagged
@@ -1806,6 +1807,97 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &990000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150802221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b47a44cb3a432a8b4a431d68bebb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions:
+  - triggerId: S_DoorOpen00
+    actionType: 0
+    animator: {fileID: 150802222}
+    animatorTrigger: Open
+    prefab: {fileID: 0}
+    spawnOverride: {fileID: 0}
+    spawnOffset: {x: 0, y: 0, z: 0}
+    useBubblePosition: 1
+    parentToListener: 0
+    destroyAfterSeconds: 0
+    delayBeforeAction: 0
+  - triggerId: S_DoorClose00
+    actionType: 0
+    animator: {fileID: 150802222}
+    animatorTrigger: Close
+    prefab: {fileID: 0}
+    spawnOverride: {fileID: 0}
+    spawnOffset: {x: 0, y: 0, z: 0}
+    useBubblePosition: 1
+    parentToListener: 0
+    destroyAfterSeconds: 0
+    delayBeforeAction: 0
+--- !u!1 &990000010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990000011}
+  - component: {fileID: 990000012}
+  m_Layer: 0
+  m_Name: KissTriggerListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &990000011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990000010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &990000012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990000010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b47a44cb3a432a8b4a431d68bebb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions:
+  - triggerId: S_Kiss00
+    actionType: 1
+    animator: {fileID: 0}
+    animatorTrigger: Open
+    prefab: {fileID: 125296126347003563, guid: 05774a57b0b0c445b9aba0fefff4f2b6, type: 3}
+    spawnOverride: {fileID: 65198763}
+    spawnOffset: {x: 0, y: 0.2, z: 0}
+    useBubblePosition: 1
+    parentToListener: 0
+    destroyAfterSeconds: 5
+    delayBeforeAction: 0
 --- !u!1 &1225163110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,3 +2999,4 @@ SceneRoots:
   - {fileID: 4226634567943569675}
   - {fileID: 4448798761403373444}
   - {fileID: 150802223}
+  - {fileID: 990000011}

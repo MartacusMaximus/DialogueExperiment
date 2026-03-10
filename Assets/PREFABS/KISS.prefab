@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 508339263964589906}
   - component: {fileID: 5245967826835884776}
   - component: {fileID: 6743441739558008023}
-  - component: {fileID: 780478406762046017}
   - component: {fileID: 4371392909231851262}
   m_Layer: 6
   m_Name: KISS
@@ -136,25 +135,6 @@ MonoBehaviour:
   tmpText: {fileID: 7335350346208070044}
   canvasGroup: {fileID: 5245967826835884776}
   fadeDuration: 0.5
---- !u!114 &780478406762046017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 125296126347003563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4278b0fff96ebde4ba1a35c479dd5af9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatingBubble
-  bobAmplitude: 0.15
-  bobFrequency: 1
-  orbitRadius: 0.25
-  orbitSpeed: 20
-  orbitAxis: {x: 0, y: 1, z: 0}
-  faceCamera: 1
-  targetCamera: {fileID: 0}
 --- !u!54 &4371392909231851262
 Rigidbody:
   m_ObjectHideFlags: 0
