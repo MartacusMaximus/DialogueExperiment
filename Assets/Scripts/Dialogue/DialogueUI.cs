@@ -54,34 +54,13 @@ public class DialogueUI : MonoBehaviour
             if (postReveal > 0f)
                 yield return new WaitForSeconds(postReveal);
 
-            // Gaan we klikken of wachten
-            if (bubbleData.expectedResponse == ExpectedResponseType.TimerOnly)
+            if (autoFade > 0f)
             {
-                if (autoFade > 0f)
-                {
-                    bool finished = false;
-                    Action<SpeechBubbleView> onLife2 = (v) => { if (v == currentView) finished = true; };
-                    currentView.OnLifeComplete += onLife2;
-                    yield return new WaitUntil(() => finished);
-                    currentView.OnLifeComplete -= onLife2;
-                }
-            }
-            else if (bubbleData.expectedResponse == ExpectedResponseType.None)
-            {
-                if (autoFade > 0f)
-                {
-                    bool finished = false;
-                    Action<SpeechBubbleView> onLife = (v) => { if (v == currentView) finished = true; };
-                    currentView.OnLifeComplete += onLife;
-                    yield return new WaitUntil(() => finished);
-                    currentView.OnLifeComplete -= onLife;
-                }
-                else
-                {
-                    // press interact to continue
-                    waitingForAdvance = true;
-                    yield return new WaitUntil(() => waitingForAdvance == false);
-                }
+                bool finished = false;
+                Action<SpeechBubbleView> onLife = (v) => { if (v == currentView) finished = true; };
+                currentView.OnLifeComplete += onLife;
+                yield return new WaitUntil(() => finished);
+                currentView.OnLifeComplete -= onLife;
             }
             else
             {
@@ -102,11 +81,6 @@ public class DialogueUI : MonoBehaviour
             }
 
             currentView = null;
-
-            if (bubbleData.followUp != null)
-            {
-                yield return PlayNodeSequential(bubbleData.followUp);
-            }
         }
 
         dialogueRoutine = null;

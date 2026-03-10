@@ -13,6 +13,11 @@ public class OrderSpawner : MonoBehaviour
         pos.y = transform.position.y + 1.0f;
 
         var go = Instantiate(bubblePrefab.gameObject, pos, Quaternion.identity, spawnParent).GetComponent<SpeechBubbleEntity>();
-        go.InitializeOrder(order);
+        go.InitializeGenerated(
+            $"LEGACY_ORDER_{order.name}",
+            order.orderName,
+            $"{order.orderName}\nReward: {order.rewardedGold} Gold"
+        );
+        go.PlayInflate();
     }
 }

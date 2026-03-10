@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bac89bd29d445dca74ef24e521f402, type: 3}
+  m_Name: HellYea
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  eventGroupId: HellYea
+  bubbles:
+  - bubbleId: R_HellYea00
+    speakerName: Me
+    text: '"Hell yea, Bro"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - R_HellYea00
+      followUpEvent: R_HellYea01
+      sceneTriggers: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
+  - bubbleId: R_HellYea01
+    speakerName: Me
+    text: '"Yes man , YESSSS"'
+    responseBranches: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25

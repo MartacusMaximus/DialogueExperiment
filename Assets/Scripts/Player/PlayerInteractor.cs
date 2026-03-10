@@ -31,15 +31,10 @@ public class PlayerInteractor : MonoBehaviour
 
                 if (heldItem != null)
                 {
-                    var machine = interactable as BubbleMachine;
-                    if (machine != null)
+                    SpeechBubbleEntity heldBubble = GetHeldSpeechBubble();
+                    if (heldBubble != null && interactable is IBubbleInsertTarget insertTarget)
                     {
-                        var heldGO = GetHeldGameObject();
-                        var bubble = heldGO != null ? heldGO.GetComponent<SpeechBubbleEntity>() : null;
-                        if (bubble != null && bubble.isOrder)
-                            InteractionPromptUI.Instance.Show("Press E to Insert Order");
-                        else
-                            InteractionPromptUI.Instance.Show("Press E to Insert");
+                        InteractionPromptUI.Instance.Show(insertTarget.GetInsertPrompt(heldBubble));
                         return;
                     }
 
@@ -161,5 +156,34 @@ public class PlayerInteractor : MonoBehaviour
         ClearHeld();
 
         return obj;
+    }
+
+    public SpeechBubbleEntity GetHeldSpeechBubble()
+    {
+        GameObject held = GetHeldGameObject();
+        if (held == null) return null;
+        return held.GetComponent<SpeechBubbleEntity>();
+    }
+
+    public bool TryTakeHeldSpeechBubble(out SpeechBubbleEntity bubble)
+    {
+        bubble = GetHeldSpeechBubble();
+        if (bubble == null) return false;
+
+        GameObject taken = TakeHeldItemForInsertion();
+        if (taken == null)
+        {
+            bubble = null;
+            return false;
+        }
+
+        bubble = taken.GetComponent<SpeechBubbleEntity>();
+        return bubble != null;
+    }
+
+    public void ReturnTakenBubble(SpeechBubbleEntity bubble)
+    {
+        if (bubble == null) return;
+        PickupItem(bubble.gameObject);
     }
 }

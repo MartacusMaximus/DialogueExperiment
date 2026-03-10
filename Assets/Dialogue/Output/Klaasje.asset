@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bac89bd29d445dca74ef24e521f402, type: 3}
+  m_Name: Klaasje
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  eventGroupId: Klaasje
+  bubbles:
+  - bubbleId: D_Klaasje00
+    speakerName: Miss Klaasje
+    text: '"Hey I need some stuff if you like doing illegal things"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - R_HellYea00
+      followUpEvent: D_Klaasje02
+      sceneTriggers: []
+    - branchKey: 02
+      respondsTo:
+      - R_HellNo00
+      followUpEvent: D_Klaasje01
+      sceneTriggers: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
+  - bubbleId: D_Klaasje01
+    speakerName: Miss Klaasje
+    text: '"Trust Me"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - R_HellYea01
+      followUpEvent: D_Klaasje02
+      sceneTriggers: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
+  - bubbleId: D_Klaasje02
+    speakerName: Miss Klaasje
+    text: '"You''re the best, sweetie"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo: []
+      followUpEvent: 
+      sceneTriggers:
+      - S_Kiss00
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25

@@ -3,17 +3,22 @@ using UnityEngine;
 public class OptionButton : MonoBehaviour, IInteractable
 {
     public string optionValue;
-    MessageMachine machine;
+    string promptLabel;
+    BubbleMachine machine;
 
-    public void Initialize(MessageMachine owner, string value)
+    public void Initialize(BubbleMachine owner, string value, string label = null)
     {
         machine = owner;
         optionValue = value;
+        promptLabel = string.IsNullOrWhiteSpace(label) ? value : label;
     }
 
     public string GetInteractPrompt()
     {
-        return "Press E - " + optionValue;
+        if (string.IsNullOrWhiteSpace(promptLabel))
+            return "Press E to Select Response";
+
+        return "Press E - " + promptLabel;
     }
 
     public void Interact(PlayerInteractor interactor)

@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bac89bd29d445dca74ef24e521f402, type: 3}
+  m_Name: Sjord
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  eventGroupId: Sjord
+  bubbles:
+  - bubbleId: D_Sjord00
+    speakerName: Mister Sjord
+    text: '"Hey Guy, Are You trustworthy?"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - D_Klaasje01
+      - R_HellYea00
+      - R_HellYea01
+      followUpEvent: D_Sjord01
+      sceneTriggers: []
+    - branchKey: 02
+      respondsTo:
+      - R_HellNo00
+      followUpEvent: D_Sjord02
+      sceneTriggers: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
+  - bubbleId: D_Sjord01
+    speakerName: Mister Sjord
+    text: '"Can you get me some fucked up shit?"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - R_HellYea01
+      - R_HellYea00
+      followUpEvent: D_Sjord02
+      sceneTriggers:
+      - S_DoorOpen00
+    - branchKey: 02
+      respondsTo:
+      - R_HellNo00
+      followUpEvent: D_Sjord02
+      sceneTriggers: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
+  - bubbleId: D_Sjord02
+    speakerName: Mister Sjord
+    text: '"Alright later, loser"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - D_Klaasje01
+      followUpEvent: D_Sjord01
+      sceneTriggers: []
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
+  - bubbleId: D_Sjord02
+    speakerName: Mister Sjord
+    text: '"Thanks a lot, bozo"'
+    responseBranches:
+    - branchKey: 01
+      respondsTo:
+      - D_Klaasje02
+      followUpEvent: R_Love00
+      sceneTriggers: []
+    - branchKey: 02
+      respondsTo:
+      - D_Sjord02
+      followUpEvent: R_HellNo00
+      sceneTriggers:
+      - S_DoorClose00
+    appropriateResponses: []
+    sceneTriggers: []
+    followUpEvent: 
+    autoFadeTime: 0
+    revealSpeed: 60
+    postRevealDelay: 0.25
